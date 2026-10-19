@@ -1,0 +1,44 @@
+{
+  "name": "Alex",
+  "budget": 2000.0,
+  "started": "2026-10-01",
+  "categories": [
+    {
+      "name": "Rent",
+      "allocated": 900.0,
+      "spent": 900.0,
+      "transactions": [
+        {
+          "amount": 900.0,
+          "note": "October rent"
+        }
+      ]
+    },
+    {
+      "name": "Groceries",
+      "allocated": 400.0,
+      "spent": 160.0,
+      "transactions": [
+        {
+          "amount": 70.0,
+          "note": "Market"
+        },
+        {
+          "amount": 90.0,
+          "note": "Weekday shop"
+        }
+      ]
+    },
+    {
+      "name": "Transport",
+      "allocated": 200.0,
+      "spent": 50.0,
+      "transactions": [
+        {
+          "amount": 50.0,
+          "note": "Monthly pass"
+        }
+      ]
+    }
+  ]
+}
