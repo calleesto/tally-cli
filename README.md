@@ -1,42 +1,40 @@
 # Tally
 
-Tally is a terminal budget. It keeps one monthly budget, splits it across categories, and shows how much is left with bars that start full and shrink as money is spent.
-
-![Budget screen](<assets/Screenshot 2026-10-19 at 16.57.11.png>)
-
-![Categories screen](<assets/Screenshot 2026-10-19 at 16.58.45.png>)
-
-![Insights screen](<assets/Screenshot 2026-10-19 at 17.51.48.png>)
+Tally is a terminal budget. PyTorch runs [Qwen/Qwen2.5-1.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct) locally and turns the month's spending pace into a short suggestion.
 
 ## Run
-
-Open a terminal in this folder and run:
 
 ```bash
 python3 -m pip install -r requirements.txt
 python3 main.py
 ```
 
-The example account is stored in `state.json`. Insights uses [Qwen/Qwen2.5-1.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct). The first analysis downloads that model.
+The first analysis downloads the model. The example account is in `state.json`.
 
 ## Screens
 
-**Budget** shows the account, the monthly total, and what is spent, unspent, allocated, and still unallocated.
+**Budget** shows the account, the monthly total, and the day of the period.
 
-**Categories** shows each category, its bar, and the allocated, spent, and remaining amounts.
+![Budget screen](<assets/Screenshot 2026-10-19 at 16.57.11.png>)
 
-**Insights** compares spending with how much of the month is left, then says what to change. The period starts on the day the monthly budget is saved. Choose **Analyze spending** on that screen. The side arrows move from Budget to Categories to Insights.
+**Categories** shows each category and how much of it is left. Bars start full and shrink as money is spent.
+
+![Categories screen](<assets/Screenshot 2026-10-19 at 16.58.45.png>)
+
+**Insights** is where PyTorch runs. **Analyze spending** asks Qwen for advice based on how much of the month is left.
+
+![Insights screen](<assets/Screenshot 2026-10-19 at 17.51.48.png>)
 
 | Key | Action |
 | --- | --- |
 | ↑ ↓ | Move through the actions |
-| ← → | Switch between Budget and Categories |
+| ← → | Switch between Budget, Categories, and Insights |
 | Enter | Select |
 | Esc | Go back, or cancel what you are typing |
 
 ## Example
 
-The sample budget is 2,000.00 for Alex.
+The sample budget is 2,000.00 for Alex, starting 1 October.
 
 | Category | Allocated | Spent | Left |
 | --- | ---: | ---: | ---: |
