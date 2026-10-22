@@ -12,6 +12,7 @@ def ensure_json_exists():
         STATE_FILE.write_text(json.dumps(default_data, indent=2) + "\n")
 
 
+# turn category data into format that the app can use
 def normalize_category(item):
     if isinstance(item, str):
         return {"name": item.strip(), "allocated": 0.0, "spent": 0.0, "transactions": []}
@@ -31,7 +32,7 @@ def normalize_category(item):
         "transactions": transactions,
     }
 
-
+# formatting amount
 def _as_amount(value):
     try:
         amount = round(float(value), 2)
@@ -39,7 +40,7 @@ def _as_amount(value):
         return 0.0
     return amount if amount >= 0 else 0.0
 
-
+# working with json
 def load_state():
     ensure_json_exists()
     try:
@@ -67,17 +68,19 @@ def load_state():
         "categories": [normalize_category(item) for item in raw_categories],
     }
 
-
+# again working with json
 def save_state(state):
     STATE_FILE.write_text(json.dumps(state, indent=2) + "\n")
 
-
+# for these two functions we
+# get string
+# try to turn string into date object to validate it
+# if it works we turn it back to string for the app to use
 def _started_text(value):
     parsed = parse_started(value)
     if parsed is None:
         return None
     return parsed.isoformat()
-
 
 def parse_started(value):
     if not value:
@@ -88,6 +91,7 @@ def parse_started(value):
         return None
 
 
+# start date on input, end date on output (date objects)
 def add_months(day, months):
     month_index = day.month - 1 + months
     year = day.year + month_index // 12
@@ -96,6 +100,7 @@ def add_months(day, months):
     return date(year, month, min(day.day, last_day))
 
 
+# calculations for what today is within the budget from the state
 def budget_period(started, today=None):
     """One month beginning on the day the budget was saved."""
     today = today or date.today()
@@ -108,6 +113,7 @@ def budget_period(started, today=None):
     else:
         elapsed = (today - started).days + 1
     elapsed = min(total_days, max(1, elapsed))
+    # returns dict (syntax: "key": value,)
     return {
         "start": started,
         "end": end,
@@ -150,7 +156,9 @@ def name_taken(state, name, ignore=None):
         for category in state["categories"]
     )
 
-
+# sums up ONLY allocated and spent from all categories
+# unallocated = budget - allocated
+# unspent = budget - spent
 def totals(state):
     allocated = round(sum(category["allocated"] for category in state["categories"]), 2)
     spent = round(sum(category["spent"] for category in state["categories"]), 2)
